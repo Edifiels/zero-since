@@ -1,0 +1,301 @@
+/* ==========================================================================
+   Часть «b4» — Блок 4 «Сверхспособности»
+   ========================================================================== */
+
+/* ---------- Титул блока ------------------------------------------------- */
+/* «Сверх-/способности» в две строки — крупным кеглем, как титулы других блоков (самая длинная строка ≈ 44u) */
+.slide--b4-chapter .chapter-title:has(br) { font-size: calc(var(--u) * 5.3); }
+
+/* ---------- Лента времени ----------------------------------------------- */
+.b4-tl { padding-bottom: calc(var(--u) * 3.4); }
+.b4-tl-head { display: flex; flex-direction: column; gap: calc(var(--u) * .4); }
+.b4-tl-head .t-title { font-size: calc(var(--u) * 3.9); }
+.b4-tl-head .t-title .accent { text-shadow: var(--glow-green), var(--text-shadow); }
+
+.b4-tl-panel {
+  position: relative;
+  margin-top: auto;
+  width: calc(var(--u) * 44);
+  height: calc(var(--u) * 16);
+}
+.b4-tl-item {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * .45);
+}
+.b4-tl-year {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 6.8);
+  font-weight: 800;
+  letter-spacing: -.045em;
+  line-height: .95;
+  color: var(--green-ink);
+  font-variant-numeric: tabular-nums;
+  text-shadow: var(--glow-green), var(--text-shadow);
+}
+.b4-tl-name {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.9);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b4-tl-sub {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.2;
+  color: var(--fg-2);
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b4-tl-caption .panel { font-size: calc(var(--u) * 2.3); font-weight: 600; padding: .5em 1.3em !important; }
+
+/* 3D-подписи: годы вех и промежутки между ними */
+.label3d .b4-ms { line-height: 1; }
+.label3d .b4-ms-y {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.05);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--fg);
+  transition: color .5s, transform .6s var(--ease-back);
+}
+.label3d.anchor-top .b4-ms-y { transform-origin: 50% 0; }
+.label3d.is-new .b4-ms-y { color: var(--green-ink); transform: scale(1.25); text-shadow: var(--glow-green), var(--text-shadow); }
+.label3d .b4-gap {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.75);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--green-ink);
+  white-space: nowrap;
+}
+
+/* ---------- Белок, Нобель, олимпиада ------------------------------------ */
+.b4-pr { justify-content: flex-start; padding-top: calc(var(--u) * 9.5); }
+.b4-pr-stack { display: grid; width: calc(var(--u) * 44); }
+.b4-pr-a, .b4-pr-b { grid-area: 1 / 1; display: flex; flex-direction: column; gap: calc(var(--u) * 2.2); align-self: start; }
+.b4-pr-title { font-size: calc(var(--u) * 4.1); line-height: 1.05; }
+.b4-pr-lead { font-size: calc(var(--u) * 2.75); line-height: 1.2; max-width: calc(var(--u) * 40); }
+.b4-pr-lead b { font-weight: 800; }
+.b4-chip-big { font-size: calc(var(--u) * 1.9); padding: .45em 1em; border-width: 3px; }
+.b4-pr-year {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 9);
+  font-weight: 800;
+  letter-spacing: -.05em;
+  line-height: .9;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green), var(--text-shadow);
+}
+.b4-pr-imo { font-size: calc(var(--u) * 2.75); line-height: 1.22; }
+.b4-pr-imo b { font-weight: 800; }
+
+/* ---------- Кибербезопасность: Mythos ----------------------------------- */
+.b4-cy { justify-content: flex-start; padding-top: calc(var(--u) * 9.5); }
+.b4-cy-head { display: flex; flex-direction: column; gap: calc(var(--u) * .6); }
+.b4-cy-title { font-size: calc(var(--u) * 4.3); line-height: 1.04; }
+.b4-cy-title .accent { text-shadow: var(--glow-green), var(--text-shadow); }
+.b4-cy-stack { display: grid; width: calc(var(--u) * 42); margin-top: calc(var(--u) * 2.6); }
+.b4-cy-t { grid-area: 1 / 1; align-self: start; font-size: calc(var(--u) * 2.75); line-height: 1.22; }
+.b4-cy-t b { font-weight: 800; }
+.b4-red { color: var(--red); }
+.b4-cy-age { display: flex; flex-direction: column; gap: calc(var(--u) * .8); }
+.b4-cy-age .t-lead { font-size: calc(var(--u) * 2.75); }
+.b4-cy-counter .c-value { font-size: calc(var(--u) * 10); color: var(--red); text-shadow: 0 0 calc(var(--u) * 1.6) rgba(255, 59, 48, .45), var(--text-shadow); }
+.b4-cy-lock { font-size: calc(var(--u) * 3.1); }
+.label3d .b4-cy-tag {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 800;
+  padding: .3em .85em;
+  border-width: 3px;
+}
+.label3d .b4-cy-tag.is-red { border-color: var(--red); color: var(--fg); background: color-mix(in srgb, var(--red) 28%, var(--panel-strong)); }
+.label3d .b4-cy-hole {
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 3.2);
+  height: calc(var(--u) * 3.2);
+  border-radius: 50%;
+  background: var(--red);
+  color: #000;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 800;
+  box-shadow: 0 0 calc(var(--u) * 1.2) rgba(255, 59, 48, .6);
+}
+/* Затемнение под колонкой текста поверх насыщенной 3D-сцены */
+.b4-cy::before, .b4-mv::before {
+  content: '';
+  position: absolute;
+  /* выходит за пределы сцены 16:9 (на экранах 4:3 / 21:9 нет резких краёв) */
+  top: -50vh;
+  bottom: -50vh;
+  left: -50vw;
+  width: calc(50vw + var(--u) * 62);
+  background: linear-gradient(90deg,
+    color-mix(in srgb, var(--bg) 80%, transparent) 0,
+    color-mix(in srgb, var(--bg) 80%, transparent) calc(50vw + var(--u) * 6),
+    color-mix(in srgb, var(--bg) 60%, transparent) calc(50vw + var(--u) * 36),
+    transparent 100%);
+  pointer-events: none;
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 1.2s var(--ease-out) .2s;
+}
+.slide.is-in .b4-cy::before, .slide.is-in .b4-mv::before { opacity: 1; }
+.slide--b4-moravec[data-cur-step="1"] .b4-mv::before { opacity: 0; }
+.label3d .b4-rg-task { text-align: center; line-height: 1.05; }
+
+/* ---------- Парадокс Моравека и рваная граница -------------------------- */
+.b4-mv { display: grid; grid-template-rows: minmax(0, 1fr); align-content: stretch; justify-content: start; padding-top: calc(var(--u) * 9.5); }
+.b4-mv > * { grid-area: 1 / 1; max-width: calc(var(--u) * 47); }
+.b4-mv-a, .b4-mv-b { display: flex; flex-direction: column; gap: calc(var(--u) * 1.8); align-self: start; }
+.b4-mv-p {
+  font-size: calc(var(--u) * 2.75);
+  font-weight: 500;
+  line-height: 1.24;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b4-mv-p b { font-weight: 800; }
+.b4-mv-p .accent { font-weight: 700; }
+.b4-warn { color: var(--orange); font-weight: 700; }
+.b4-mv-b { align-self: end; gap: calc(var(--u) * .6); }
+.b4-mv-b .t-title { font-size: calc(var(--u) * 5.2); }
+.label3d .b4-rg-task {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.75);
+  font-weight: 800;
+  padding: .26em .75em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 3px solid var(--green-line);
+  color: var(--fg);
+}
+.label3d .b4-rg-task.is-low { border-color: var(--orange); color: var(--orange); }
+.label3d .b4-rg-level, .label3d .b4-rg-ai {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.6);
+  font-weight: 800;
+  letter-spacing: .02em;
+  padding: .25em .75em;
+  border-radius: 999px;
+  color: var(--fg);
+  background: var(--panel-strong);
+  border: 3px dashed var(--green-line);
+}
+.label3d .b4-rg-ai { border-style: solid; border-color: var(--green); color: var(--green-ink); }
+
+/* ---------- Блиц «Умеет или пока нет?» ---------------------------------- */
+.b4-bz { gap: calc(var(--u) * 1.2); }
+.b4-bz-head { display: flex; flex-direction: column; gap: calc(var(--u) * 1); }
+.b4-bz-title { font-size: calc(var(--u) * 3.9); }
+.b4-bz-top { display: flex; align-items: center; gap: calc(var(--u) * 1.6); }
+.b4-bz-top .q-badge { align-self: center; }
+.b4-bz-list {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 1.05);
+  width: calc(var(--u) * 58);
+  margin-top: calc(var(--u) * .6);
+}
+.b4-bz .b4-bz-card { min-height: calc(var(--u) * 6.3); perspective: calc(var(--u) * 90); }
+.slide--b4-blitz .b4-bz-card .flip-inner { transition: transform 1.05s var(--ease-back); }
+.slide--b4-blitz .b4-bz-card.is-shown .flip-inner { transform: rotateX(-180deg); }
+.slide--b4-blitz .b4-bz-card .flip-front,
+.slide--b4-blitz .b4-bz-card .flip-back {
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-start;
+  gap: calc(var(--u) * 1.5);
+  padding: 0 calc(var(--u) * 1.8) 0 calc(var(--u) * 1.3);
+  text-align: left;
+  font-family: var(--font-text);
+  border-width: 3px;
+}
+.slide--b4-blitz .b4-bz-card .flip-back { transform: rotateX(180deg); }
+.b4-bz-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 3.7);
+  height: calc(var(--u) * 3.7);
+  border-radius: 50%;
+  border: 3px solid var(--line-strong);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.85);
+  font-weight: 800;
+  line-height: 1;
+}
+.b4-bz-q {
+  flex: 1;
+  font-size: calc(var(--u) * 2.15);
+  font-weight: 600;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+.b4-bz-mark {
+  flex: none;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3.2);
+  font-weight: 800;
+  color: var(--fg-3);
+}
+.b4-bz-a {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--u) * .2);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.5);
+  font-weight: 800;
+  line-height: 1;
+  text-align: right;
+  white-space: nowrap;
+}
+.b4-bz-note { font-family: var(--font-text); font-size: var(--fs-label); font-weight: 700; opacity: .85; }
+.b4-ck {
+  display: inline-block;
+  width: .95em;
+  height: .95em;
+  margin-left: .3em;
+  vertical-align: -.1em;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 3.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.b4-bz-v { display: inline-flex; align-items: center; white-space: nowrap; }
+.slide--b4-blitz .flip-back .b4-bz-num { border-color: rgba(0, 0, 0, .45); }
+.slide--b4-blitz .flip-back .b4-bz-q { font-weight: 700; }
+/* текущая (следующая к перевороту) карточка подсвечена */
+.slide--b4-blitz .b4-bz-card .flip-front { transition: border-color .5s, box-shadow .5s, background-color .5s; }
+.slide--b4-blitz[data-cur-step="0"] .b4-bz-card[data-n="1"] .flip-front,
+.slide--b4-blitz[data-cur-step="1"] .b4-bz-card[data-n="2"] .flip-front,
+.slide--b4-blitz[data-cur-step="2"] .b4-bz-card[data-n="3"] .flip-front,
+.slide--b4-blitz[data-cur-step="3"] .b4-bz-card[data-n="4"] .flip-front,
+.slide--b4-blitz[data-cur-step="4"] .b4-bz-card[data-n="5"] .flip-front {
+  border-color: var(--green);
+  box-shadow: 0 0 0 calc(var(--u) * .2) var(--green-soft), var(--glow-green);
+}
+.slide--b4-blitz[data-cur-step="0"] .b4-bz-card[data-n="1"] .b4-bz-mark,
+.slide--b4-blitz[data-cur-step="1"] .b4-bz-card[data-n="2"] .b4-bz-mark,
+.slide--b4-blitz[data-cur-step="2"] .b4-bz-card[data-n="3"] .b4-bz-mark,
+.slide--b4-blitz[data-cur-step="3"] .b4-bz-card[data-n="4"] .b4-bz-mark,
+.slide--b4-blitz[data-cur-step="4"] .b4-bz-card[data-n="5"] .b4-bz-mark { color: var(--green-ink); animation: b4-q-pulse 1.4s ease-in-out infinite; }
+@keyframes b4-q-pulse { 50% { transform: scale(1.18); } }
+.slide--b4-blitz .b4-bz-card.is-wow.is-shown .flip-back { animation: b4-wow 1.1s var(--ease-back) .55s both; }
+@keyframes b4-wow { 0% { filter: brightness(1); } 35% { filter: brightness(1.35); transform: rotateX(180deg) scale(1.04); } 100% { filter: brightness(1); transform: rotateX(180deg) scale(1); } }

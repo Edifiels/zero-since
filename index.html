@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Захватит ли ИИ весь мир? — Лаборатория НСИИИ</title>
+  <meta name="description" content="Открытая лекция «Захватит ли ИИ весь мир? Путешествие во вселенную разума». Интерактивная презентация лаборатории НСИИИ.">
+  <meta name="theme-color" content="#000000">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Захватит ли ИИ весь мир? Путешествие во вселенную разума">
+  <meta property="og:description" content="Открытая лекция лаборатории НСИИИ">
+  <meta property="og:image" content="assets/img/og-banner.jpg">
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/icon-32.png">
+  <link rel="apple-touch-icon" href="assets/logo/icon-180.png">
+
+  <link rel="preload" href="assets/fonts/unbounded-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/onest-cyrillic.woff2" as="font" type="font/woff2" crossorigin>
+
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/components.css">
+  <link rel="stylesheet" href="css/ui.css">
+  <!-- Стили блоков лекции -->
+  <link rel="stylesheet" href="css/parts/b1.css">
+  <link rel="stylesheet" href="css/parts/b2a.css">
+  <link rel="stylesheet" href="css/parts/b2b.css">
+  <link rel="stylesheet" href="css/parts/b3.css">
+  <link rel="stylesheet" href="css/parts/b4.css">
+  <link rel="stylesheet" href="css/parts/b5a.css">
+  <link rel="stylesheet" href="css/parts/b5b.css">
+  <link rel="stylesheet" href="css/parts/b6.css">
+  <link rel="stylesheet" href="css/parts/b7.css">
+  <link rel="stylesheet" href="css/parts/b8.css">
+
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "./vendor/three/build/three.module.min.js",
+      "three/addons/": "./vendor/three/addons/",
+      "gsap": "./vendor/gsap/index.js",
+      "gsap/": "./vendor/gsap/"
+    }
+  }
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <div id="app" class="app">
+    <!-- WebGL-сцена -->
+    <div id="gl" class="layer layer-gl" aria-hidden="true"></div>
+    <!-- Подписи, привязанные к 3D-объектам -->
+    <div id="labels" class="layer layer-labels" aria-hidden="true"></div>
+    <!-- Слайды (HTML поверх 3D) -->
+    <main id="overlay" class="layer layer-overlay" aria-live="polite"></main>
+    <!-- Интерфейс: прогресс, кнопки, счётчик -->
+    <div id="chrome" class="layer layer-chrome"></div>
+    <!-- Стартовый экран, навигатор, справка, затемнение -->
+    <div id="modals" class="layer layer-modals"></div>
+    <div id="curtain" class="curtain" aria-hidden="true"></div>
+    <noscript>
+      <div class="noscript">Для презентации нужен JavaScript и современный браузер (Chrome, Edge, Firefox, Safari).</div>
+    </noscript>
+  </div>
+</body>
+</html>

@@ -1,0 +1,300 @@
+/* ==========================================================================
+   Часть «b5a» — Блок 5 «Побег из песочницы» (первая половина)
+   Все классы — с префиксом .b5-
+   ========================================================================== */
+
+/* ---------- Подписи у 3D-объектов ---------------------------------------- */
+.label3d .b5-tag3d {
+  display: inline-block;
+  padding: .32em .85em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 2px solid var(--line-strong);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.75);
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--fg);
+}
+.label3d .b5-tag3d.is-accent { border-color: var(--green); color: var(--green-ink); }
+
+/* «Финиш» у флажка — одиноко мигает (мигание задаёт визуализация) */
+.label3d .b5-finish3d {
+  display: inline-flex;
+  align-items: center;
+  gap: .45em;
+  padding: .28em .75em;
+  border-radius: .45em;
+  background: var(--panel-strong);
+  border: 3px solid var(--fg);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+  color: var(--fg);
+  transition: font-size .8s var(--ease-out);
+}
+.label3d .b5-finish3d::before {
+  content: '';
+  width: 1.1em;
+  height: .8em;
+  background: conic-gradient(var(--fg) 25%, transparent 0 50%, var(--fg) 0 75%, transparent 0) 0 0 / .4em .4em;
+  border: 2px solid var(--fg);
+}
+.label3d.b5-finish-l.is-loop .b5-finish3d { font-size: calc(var(--u) * 2.3); }
+.label3d.b5-finish-l .l-in { transition: opacity .12s linear; }
+
+/* «+100» над бонусом */
+.label3d .b5-pop {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.7);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green), var(--text-shadow);
+  opacity: 0;
+}
+.label3d .b5-pop.is-pop { animation: b5-pop 1.1s var(--ease-out) both; }
+@keyframes b5-pop {
+  0% { opacity: 0; transform: translateY(calc(var(--u) * 1)) scale(.5); }
+  18% { opacity: 1; transform: translateY(0) scale(1.15); }
+  60% { opacity: 1; transform: translateY(calc(var(--u) * -1.6)) scale(1); }
+  100% { opacity: 0; transform: translateY(calc(var(--u) * -3.2)) scale(.9); }
+}
+
+/* ---------- Гонка: очки и метка ------------------------------------------ */
+.b5-hud {
+  position: absolute;
+  top: calc(var(--u) * 2);
+  right: var(--pad-x);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: calc(var(--u) * .5);
+  padding: calc(var(--u) * 1.1) calc(var(--u) * 2.4) calc(var(--u) * 1.4) calc(var(--u) * 2);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+}
+.b5-hud-label {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--fg-2);
+}
+.b5-hud-score {
+  min-width: 5.2ch;
+  text-align: right;
+  font-family: var(--font-pixel);
+  font-size: calc(var(--u) * 4.2);
+  line-height: 1;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+.b5-hud-score.is-bump { animation: b5-bump .45s var(--ease-out); }
+@keyframes b5-bump { 0% { transform: scale(1.18); } 100% { transform: none; } }
+
+.b5-race-tag {
+  position: absolute;
+  top: calc(var(--u) * 6.2);
+  left: var(--pad-x);
+  display: inline-flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.1);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.5);
+  font-weight: 800;
+  letter-spacing: -.02em;
+  text-shadow: var(--text-shadow);
+}
+.b5-year {
+  display: inline-block;
+  padding: .12em .5em;
+  border-radius: 999px;
+  background: var(--green);
+  color: #000;
+  font-size: .78em;
+  text-shadow: none;
+}
+
+/* Крупная нижняя подпись */
+.b5-caption-xl {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.6);
+  font-weight: 700;
+  letter-spacing: -.01em;
+}
+.b5-caption-xl .panel { border: 2px solid var(--green-line); }
+.b5-neq {
+  display: inline-block;
+  margin: 0 .15em;
+  color: var(--green-ink);
+  font-size: 1.25em;
+  line-height: .8;
+  text-shadow: var(--glow-green);
+}
+
+/* ---------- Тетрис: «ПАУЗА» и таймер ------------------------------------- */
+.b5-pause {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: calc(var(--u) * 2.4);
+  padding-bottom: calc(var(--u) * 5);
+  pointer-events: none;
+  transition: transform 2.2s var(--ease-in-out);
+}
+.slide[data-cur-step="3"] .b5-pause { transform: translateY(calc(var(--u) * -9)) scale(.9); }
+.b5-pause-box {
+  padding: calc(var(--u) * 2.3) calc(var(--u) * 4);
+  background: color-mix(in srgb, var(--bg) 90%, transparent);
+  border: calc(var(--u) * .45) solid var(--fg);
+  box-shadow: 0 0 0 calc(var(--u) * .45) var(--bg), 0 0 0 calc(var(--u) * .9) var(--green), 0 0 calc(var(--u) * 4) rgba(0, 255, 0, .35);
+  opacity: 0;
+  visibility: hidden;
+}
+.slide.b5-paused .b5-pause-box {
+  opacity: 1;
+  visibility: visible;
+  animation: b5-pause-in .5s steps(5, end) both;
+}
+@keyframes b5-pause-in {
+  0% { opacity: 0; transform: scale(1.35) skewX(-10deg); clip-path: inset(40% 0 45% 0); }
+  20% { opacity: 1; transform: scale(1.1) translateX(-3%); clip-path: inset(10% 0 60% 0); }
+  40% { transform: scale(1.04) translateX(2%); clip-path: inset(0 0 20% 0); }
+  60% { transform: scale(1) translateX(-1%); clip-path: inset(30% 0 0 0); }
+  80% { transform: none; clip-path: inset(0 0 0 0); }
+  100% { opacity: 1; transform: none; clip-path: none; }
+}
+.b5-pause-title {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 2.4);
+  font-family: var(--font-pixel);
+  font-size: calc(var(--u) * 7.4);
+  line-height: 1;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--fg);
+  text-shadow: .09em .09em 0 var(--green);
+}
+.b5-pause-ico { display: inline-flex; gap: .2em; }
+.b5-pause-ico i { display: block; width: .3em; height: 1em; background: var(--green); box-shadow: .09em .09em 0 var(--fg-3); }
+.slide.b5-paused .b5-pause-ico { animation: b5-blink 1.2s steps(1, end) .6s infinite; }
+@keyframes b5-blink { 0%, 55% { opacity: 1; } 56%, 100% { opacity: .2; } }
+
+.b5-timer {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.5);
+  padding: calc(var(--u) * 1.1) calc(var(--u) * 2.2);
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  border: calc(var(--u) * .3) solid var(--green-line);
+  font-family: var(--font-pixel);
+  font-size: calc(var(--u) * 3.3);
+  line-height: 1;
+  color: var(--fg);
+}
+.b5-timer-val { min-width: 8ch; text-align: left; white-space: nowrap; }
+.b5-timer-val.is-tick { animation: b5-tick .25s steps(2, end); }
+@keyframes b5-tick { 0% { opacity: .35; transform: translateY(-.15em); } 100% { opacity: 1; transform: none; } }
+.b5-timer-val.is-final { color: var(--green-ink); text-shadow: var(--glow-green); }
+.b5-clock {
+  position: relative;
+  flex: none;
+  width: 1.2em;
+  height: 1.2em;
+  border: .14em solid var(--green-ink);
+  border-radius: 50%;
+  --spin: 3s;
+}
+.b5-clock i {
+  position: absolute;
+  left: calc(50% - .06em);
+  bottom: 50%;
+  width: .12em;
+  height: 38%;
+  background: var(--fg);
+  transform-origin: 50% 100%;
+  animation: b5-spin var(--spin) linear infinite;
+}
+.b5-clock::after {
+  content: '';
+  position: absolute;
+  left: calc(50% - .1em); top: calc(50% - .1em);
+  width: .2em; height: .2em;
+  border-radius: 50%;
+  background: var(--green-ink);
+}
+@keyframes b5-spin { to { transform: rotate(360deg); } }
+.slide[data-cur-step="1"] .b5-clock { --spin: 1.2s; }
+.slide[data-cur-step="2"] .b5-clock { --spin: .4s; }
+.slide[data-cur-step="3"] .b5-clock { --spin: .13s; }
+
+/* .caption-bar ядро центрирует без transform — здесь transform только для «всплытия» */
+.b5-tetris-cap {
+  opacity: 0;
+  transform: translateY(calc(var(--u) * 2));
+  transition: opacity .8s var(--ease-out), transform .9s var(--ease-out);
+}
+.b5-tetris-cap { font-size: calc(var(--u) * 1.95); }
+.b5-tetris-cap .panel {
+  display: inline-block;
+  max-width: calc(var(--u) * 82);
+  padding: .45em 1.1em;
+  border-radius: 999px;
+  border: 2px solid var(--green-line);
+  background: var(--panel-strong);
+}
+.slide.b5-paused .b5-tetris-cap { opacity: 1; transform: none; transition-delay: .7s; }
+
+/* ---------- Мораль ------------------------------------------------------- */
+.b5-moral-kicker { display: inline-flex; align-items: center; gap: .6em; }
+.b5-moral-kicker .mark { width: 1.1em; height: 1.3em; }
+.b5-moral {
+  font-size: calc(var(--u) * 4.3);
+  line-height: 1.1;
+  max-width: calc(var(--u) * 47);
+}
+.b5-moral-a, .b5-moral-b { display: inline; }
+.b5-moral .accent { text-shadow: var(--glow-green), var(--text-shadow); }
+.label3d .b5-goal { border-style: dashed; color: var(--fg-2); }
+
+/* ---------- Песочница ---------------------------------------------------- */
+/* ширину ограничиваем у подложки, а не у .caption-bar: та растянута left/right и центрирует содержимое */
+.b5-sb-cap .panel {
+  display: inline-block;
+  max-width: calc(var(--u) * 58);
+  text-wrap: balance;
+  padding: .5em 1.2em;
+  border-radius: calc(var(--u) * 2.2);
+  border: 2px solid var(--green-line);
+  background: var(--panel-strong);
+}
+.b5-sb-cap:not(.is-def) {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.5);
+  font-weight: 700;
+}
+.b5-sb-cap.is-def { font-size: calc(var(--u) * 2.05); }
+.b5-sb-cap.is-def .panel { max-width: calc(var(--u) * 64); }
+.label3d .b5-ai { font-size: calc(var(--u) * 1.9); padding: .2em .7em; }
+.label3d .b5-net {
+  font-size: calc(var(--u) * 2.4);
+  border-color: var(--green);
+  color: var(--green-ink);
+  box-shadow: var(--glow-green);
+}
+
+/* ---------- Вопрос №8: текст входит чуть позже, когда трасса уже собирается ---------- */
+.slide--b5-q8 .q-badge { --d: .15s; }
+.slide--b5-q8 .q-text { --d: .35s !important; }

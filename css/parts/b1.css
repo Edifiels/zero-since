@@ -1,0 +1,154 @@
+/* ==========================================================================
+   Часть b1 — Блок 1 «Поехали!»
+   ========================================================================== */
+
+/* Наложение блоков в одной ячейке (шаги сменяют друг друга на месте) */
+.b1-stack { display: grid; grid-template-areas: 'one'; grid-template-columns: minmax(0, 1fr); align-content: center; }
+.b1-stack > * { grid-area: one; }
+.l-left.b1-stack { justify-content: stretch; justify-items: start; }
+.l-center.b1-stack { justify-content: stretch; justify-items: center; }
+
+/* ---------- Подпись у 3D-объекта ---------- */
+.b1-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: .55em;
+  padding: .32em .9em .32em .45em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: .01em;
+  color: var(--fg);
+  text-shadow: none;
+}
+.b1-tag i {
+  width: .7em;
+  height: .7em;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 .6em var(--green);
+}
+
+/* ---------- Слайд «Старт»: дата, цитата, отсчёт ---------- */
+.b1-date { display: flex; flex-direction: column; gap: calc(var(--u) * .4); max-width: calc(var(--u) * 50); }
+.b1-date-day { color: var(--fg); }
+.b1-year {
+  font-family: var(--font-display);
+  font-weight: 900;
+  font-size: calc(var(--u) * 17);
+  line-height: .86;
+  letter-spacing: -.045em;
+  margin-left: calc(var(--u) * -.6);
+  color: transparent;
+  -webkit-text-stroke: calc(var(--u) * .16) var(--green-ink);
+  background: radial-gradient(circle, var(--green) 36%, transparent 41%) 0 0 / calc(var(--u) * .62) calc(var(--u) * .62);
+  -webkit-background-clip: text;
+  background-clip: text;
+  filter: drop-shadow(0 0 calc(var(--u) * 1.2) rgba(0, 255, 0, .35));
+}
+:root[data-theme="light"] .b1-year { filter: none; }
+.b1-date-sub { color: var(--fg-2); max-width: calc(var(--u) * 40); margin-top: calc(var(--u) * 1.2); }
+.b1-quote .quote { max-width: calc(var(--u) * 50); }
+
+/* отсчёт — в левой колонке (справа ракета) */
+.slide--b1-launch .countdown { max-width: none; right: auto; width: calc(var(--u) * 56); }
+.slide--b1-launch .countdown .cd-num { font-size: calc(var(--u) * 24); }
+.slide--b1-launch .countdown .cd-word { font-size: calc(var(--u) * 8.4); white-space: nowrap; color: var(--fg); }
+.slide--b1-launch .countdown .cd-num { text-shadow: 0 0 calc(var(--u) * 2.4) rgba(0, 255, 0, .5), var(--text-shadow); }
+:root[data-theme="light"] .slide--b1-launch .countdown .cd-num { text-shadow: var(--text-shadow); }
+.slide--b1-launch .countdown .cd-num.is-on { animation: b1-cd-pop 1s var(--ease-out) both; }
+.slide--b1-launch .countdown .cd-word.is-on { animation: b1-cd-word 2.4s var(--ease-out) both; }
+@keyframes b1-cd-pop {
+  0% { opacity: 0; transform: scale(1.7); filter: blur(calc(var(--u) * .8)); }
+  16% { opacity: 1; transform: scale(1); filter: blur(0); }
+  76% { opacity: 1; transform: scale(.93); filter: blur(0); }
+  100% { opacity: 0; transform: scale(.7); filter: blur(calc(var(--u) * .4)); }
+}
+@keyframes b1-cd-word {
+  0% { opacity: 0; transform: scale(.45) rotate(-5deg); filter: blur(calc(var(--u) * .5)); }
+  14% { opacity: 1; transform: scale(1.08) rotate(0); filter: blur(0); }
+  24% { opacity: 1; transform: scale(1); filter: blur(0); }
+  80% { opacity: 1; transform: scale(1); filter: blur(0); }
+  100% { opacity: 0; transform: translateY(calc(var(--u) * -8)) scale(1.12); filter: blur(calc(var(--u) * .6)); }
+}
+
+/* ---------- Нижние подписи: .caption-bar ядра (абсолютная, по центру) — несколько штук сменяют друг друга на месте.
+   В сетке .b1-stack у абсолютного элемента с grid-area блоком отсчёта стала бы ячейка — возвращаем сцену. ---------- */
+.b1-stack > .caption-bar { grid-area: auto; max-width: none; }
+
+/* ---------- Галактика: утверждение ---------- */
+.b1-ears { max-width: calc(var(--u) * 44); font-size: calc(var(--u) * 3.9); }
+
+/* ---------- Счётчики (справа — сеть нейронов, цифры не должны на неё заходить) ---------- */
+.b1-counter .c-value { font-size: calc(var(--u) * 7); }
+.b1-counter + .b1-counter { margin-top: calc(var(--u) * 1.6); }
+
+/* ---------- Название лекции ---------- */
+.b1-silicon { max-width: calc(var(--u) * 70); text-align: center; }
+/* мягкая «тень» под текстом поверх яркой сети нейронов (цвет фона темы — работает и в светлой теме) */
+.b1-silicon, .b1-title-block { position: relative; }
+.b1-silicon::before, .b1-title-block::before {
+  content: '';
+  position: absolute;
+  inset: -22% -10%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bg) 66%, transparent), transparent);
+}
+.slide[data-cur-step="1"] .b1-silicon { opacity: 0; transform: scale(.94); filter: blur(calc(var(--u) * .6)); transition-delay: 0s; }
+.b1-title-block { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.6); text-align: center; }
+.b1-title { font-size: calc(var(--u) * 8.6); }
+.b1-subtitle {
+  display: inline-flex;
+  align-items: center;
+  gap: .7em;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: calc(var(--u) * 2.5);
+  letter-spacing: .03em;
+  color: var(--fg);
+}
+.b1-subtitle::before, .b1-subtitle::after {
+  content: '';
+  width: calc(var(--u) * 3.2);
+  height: calc(var(--u) * .3);
+  border-radius: 99px;
+  background: var(--green);
+  box-shadow: var(--glow-green);
+}
+
+/* ---------- Голосование ---------- */
+.b1-vote-q { max-width: calc(var(--u) * 80); }
+.slide--b1-vote .vote { height: calc(var(--u) * 29); }
+.b1-vote-cap {
+  align-self: center;
+  text-align: center;
+  padding: .4em 1.1em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 1px solid var(--panel-border);
+}
+.slide--b1-vote .vote-tools { margin-top: calc(var(--u) * .2); }
+
+/* ---------- Вопрос №2: Млечный Путь или мозг ---------- */
+.b1-q2-stage .q { gap: calc(var(--u) * 1.4); height: 100%; }
+.b1-q2-stage .q-text { font-size: calc(var(--u) * 3.1); max-width: calc(var(--u) * 80); }
+.b1-q2-stage .q-options { gap: calc(var(--u) * 12); }
+.b1-q2-stage .q-option { min-height: calc(var(--u) * 7); font-size: calc(var(--u) * 2.8); }
+.b1-q2-stage .q-answer {
+  max-width: calc(var(--u) * 50);
+  font-size: calc(var(--u) * 2.3);
+  padding: calc(var(--u) * 1.4) calc(var(--u) * 1.8);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 1px solid var(--panel-border);
+}
+.b1-q2-stage .q-option { backdrop-filter: none; -webkit-backdrop-filter: none; background: var(--panel-strong); }
+.b1-links { order: 9; }
+.b1-q2-stage .q > .row { order: 10; }
+.b1-links .counter-block { flex-direction: row; align-items: baseline; gap: calc(var(--u) * 1.6); }
+.b1-links .counter-block .c-label { font-size: var(--fs-body); }
+.b1-links .counter-block.is-small .c-value { font-size: calc(var(--u) * 3.5); }

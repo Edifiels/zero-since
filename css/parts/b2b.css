@@ -1,0 +1,327 @@
+/* ==========================================================================
+   Часть «b2b» — Блок 2 «Две вселенные», вторая половина
+   Все классы — с префиксом b2b-. Только CSS-переменные цветов (светлая тема — клавиша T).
+   ========================================================================== */
+
+/* ---------- Заголовки слайдов ------------------------------------------- */
+.b2b-head {
+  position: absolute;
+  left: var(--pad-x);
+  top: var(--pad-top);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * .5);
+  max-width: calc(var(--u) * 48);
+}
+.b2b-year {
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(var(--u) * 5.6);
+  line-height: .95;
+  letter-spacing: -.035em;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green), var(--text-shadow);
+}
+.b2b-sub {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b2b-title {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: var(--fs-h2);
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b2b-left-lead {
+  position: absolute;
+  left: var(--pad-x);
+  top: calc(var(--u) * 24);
+  max-width: calc(var(--u) * 40);
+  font-size: var(--fs-lead);
+  font-weight: 600;
+  line-height: 1.22;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b2b-pill { display: inline-block; padding: .45em 1.1em; border-radius: 999px; }
+
+/* ---------- Подписи у 3D-объектов --------------------------------------- */
+.b2b-chip {
+  display: inline-block;
+  padding: .26em .8em .3em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 2px solid var(--panel-border);
+  font-family: var(--font-text);
+  font-weight: 700;
+  font-size: calc(var(--u) * 1.75);
+  line-height: 1.15;
+  color: var(--fg);
+  text-shadow: none;
+  transition: border-color .35s, box-shadow .35s, color .35s, transform .35s var(--ease-out);
+}
+.b2b-chip.is-accent { border-color: var(--green-line); }
+.b2b-chip.is-map,
+.is-map .b2b-chip { border-color: var(--green); box-shadow: var(--glow-green); }
+.is-on .b2b-chip { border-color: var(--green); box-shadow: var(--glow-green); color: var(--green-ink); transform: scale(1.08); }
+
+.b2b-sym {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--u) * 2.7);
+  line-height: 1;
+  color: var(--fg);
+  text-shadow: var(--text-shadow);
+  transition: color .25s, text-shadow .25s, transform .3s var(--ease-out);
+}
+.b2b-sym sub { font-size: .55em; margin-left: .04em; }
+.b2b-sym.is-big { font-size: calc(var(--u) * 3.4); }
+.b2b-sym.is-w { color: var(--fg-2); }
+.is-on .b2b-sym { color: var(--green-ink); text-shadow: var(--glow-green), var(--text-shadow); transform: scale(1.14); }
+
+.b2b-out {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(var(--u) * 4.4);
+  line-height: 1;
+  color: var(--fg-3);
+  text-shadow: var(--text-shadow);
+  transition: color .2s, text-shadow .3s, transform .35s var(--ease-back);
+}
+.is-on .b2b-out {
+  color: var(--fg);
+  text-shadow: 0 0 calc(var(--u) * 1.6) var(--green), 0 0 calc(var(--u) * .5) var(--green), var(--text-shadow);
+  transform: scale(1.3);
+}
+.b2b-arrow { font-weight: 800; color: var(--green-ink); margin: 0 .1em; }
+
+/* ---------- «От нейрона к таблице» --------------------------------------- */
+.b2b-chain {
+  position: absolute;
+  left: 50%;
+  top: calc(var(--u) * 5.6);
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.2);
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--u) * 2.6);
+  letter-spacing: -.02em;
+}
+.slide .b2b-chain[data-step]:not(.is-shown) { transform: translate(-50%, calc(var(--u) * -2)); }
+.b2b-chain-item {
+  padding: .22em .7em .26em;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  color: var(--fg-3);
+  text-shadow: var(--text-shadow);
+  transition: color .6s, background-color .6s, border-color .6s, box-shadow .6s, transform .6s var(--ease-back);
+}
+.b2b-chain-arrow { color: var(--fg-3); font-weight: 800; transition: color .6s; }
+/* пройденные — белые, текущий — зелёная плашка */
+.b2b-layers[data-cur-step="1"] .b2b-chain-item[data-i="0"],
+.b2b-layers[data-cur-step="2"] .b2b-chain-item:is([data-i="0"], [data-i="1"]),
+.b2b-layers[data-cur-step="3"] .b2b-chain-item:is([data-i="0"], [data-i="1"], [data-i="2"]) { color: var(--fg); }
+.b2b-layers[data-cur-step="0"] .b2b-chain-item[data-i="0"],
+.b2b-layers[data-cur-step="1"] .b2b-chain-item[data-i="1"],
+.b2b-layers[data-cur-step="2"] .b2b-chain-item[data-i="2"],
+.b2b-layers[data-cur-step="3"] .b2b-chain-item[data-i="3"] {
+  color: #000;
+  background: var(--green);
+  border-color: var(--green);
+  box-shadow: var(--glow-green);
+  text-shadow: none;
+  transform: scale(1.08);
+}
+.b2b-gpt {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--u) * 3.6);
+  transform: translateX(-50%);
+  width: max-content;
+  max-width: calc(var(--u) * 86);
+  padding: calc(var(--u) * 1.6) calc(var(--u) * 2.8);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * .5);
+}
+.slide .b2b-gpt[data-step]:not(.is-shown) { transform: translate(-50%, calc(var(--u) * 2.2)); }
+.b2b-gpt-1 { font-family: var(--font-display); font-weight: 700; font-size: calc(var(--u) * 3); line-height: 1.1; letter-spacing: -.02em; }
+.b2b-gpt-2 { font-size: var(--fs-lead); font-weight: 600; line-height: 1.2; color: var(--fg-2); }
+
+/* ---------- Кошка ---------------------------------------------------------- */
+/* ключевая подпись сценария — крупнее стандартной (читается с последних рядов) */
+.b2b-cap-md .b2b-pill { font-weight: 600; font-size: calc(var(--u) * 2.1); padding: .5em 1.2em; }
+.b2b-cap-big .b2b-pill { font-family: var(--font-display); font-weight: 700; font-size: calc(var(--u) * 2.4); padding: .5em 1.2em; }
+
+/* ---------- Нобель-2024 ---------------------------------------------------- */
+.b2b-nobel { gap: calc(var(--u) * .9); max-width: calc(var(--u) * 46); }
+.b2b-nobel > * { transition: opacity var(--t-reveal) var(--ease-out) var(--d, 0s), transform var(--t-reveal) var(--ease-out) var(--d, 0s); }
+.slide .b2b-nobel:not(.is-shown) > * { opacity: 0; transform: translateX(calc(var(--u) * -3)); }
+.slide .b2b-nobel[data-step]:not(.is-shown) { opacity: 1; transform: none; }
+.b2b-nobel .b2b-year { font-size: calc(var(--u) * 7.4); }
+.b2b-names {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--u) * 3);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  text-shadow: var(--text-shadow);
+}
+.b2b-for {
+  margin-top: calc(var(--u) * .6);
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(var(--u) * 4.2);
+  line-height: 1;
+  letter-spacing: -.03em;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green), var(--text-shadow);
+}
+.b2b-tl { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .2); text-align: center; }
+.b2b-tl-year { font-family: var(--font-display); font-weight: 800; font-size: calc(var(--u) * 2.6); line-height: 1; color: var(--green-ink); text-shadow: var(--glow-green), var(--text-shadow); }
+.b2b-tl-text { font-weight: 700; font-size: calc(var(--u) * 1.7); line-height: 1.15; color: var(--fg); text-shadow: var(--text-shadow); }
+.label3d .b2b-tl { transition: transform .6s var(--ease-back); }
+.label3d.is-hidden .b2b-tl { transform: translateY(calc(var(--u) * 1.2)) scale(.9); }
+
+/* ---------- «Главное отличие» ---------------------------------------------- */
+.b2b-plast-text {
+  position: absolute;
+  right: var(--pad-x);
+  top: calc(var(--u) * 15);
+  width: calc(var(--u) * 45);
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 1.8);
+}
+/* фраза — текстовым шрифтом (компактнее), вывод «Это нейропластичность» — акцидентным; слово целиком в поля сцены */
+.b2b-plast-lead { font-family: var(--font-text); font-weight: 600; font-size: calc(var(--u) * 3); line-height: 1.2; text-wrap: balance; text-shadow: var(--text-shadow); }
+.b2b-plast-big { font-family: var(--font-display); font-weight: 800; font-size: calc(var(--u) * 3.3); line-height: 1.1; letter-spacing: -.025em; text-shadow: var(--text-shadow); }
+.b2b-plast-big .accent { text-shadow: var(--glow-green), var(--text-shadow); }
+.b2b-side {
+  position: absolute;
+  bottom: calc(var(--u) * 3.6);
+  width: calc(var(--u) * 42);
+  display: grid;
+}
+.b2b-side > * { grid-area: 1 / 1; align-self: end; justify-self: center; }
+.b2b-side.is-left { left: var(--pad-x); }
+.b2b-side.is-right { right: var(--pad-x); }
+.b2b-side-cap {
+  justify-self: center;
+  text-align: center;
+  padding: calc(var(--u) * 1) calc(var(--u) * 1.8);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 2px solid var(--panel-border);
+  font-size: calc(var(--u) * 2.2);
+  font-weight: 600;
+  line-height: 1.2;
+  text-wrap: balance;
+}
+.b2b-side-cap b { color: var(--green-ink); font-weight: 800; }
+.b2b-side-cap.is-live { border-color: var(--green-line); }
+.b2b-side-cap.is-ice { border-color: var(--b2b-ice); font-family: var(--font-display); font-weight: 700; font-size: calc(var(--u) * 2.4); }
+
+/* ---------- «Угадай слово» -------------------------------------------------- */
+.b2b-phrase {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--u) * 13.2);
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--font-display);
+  font-weight: 800;
+  font-size: calc(var(--u) * 3.9);
+  letter-spacing: -.025em;
+  line-height: 1.1;
+  text-shadow: var(--text-shadow);
+}
+.slide .b2b-phrase[data-step-until]:not(.is-shown) { transform: translate(-50%, calc(var(--u) * 2)); }
+.b2b-blank {
+  position: relative;
+  display: inline-block;
+  padding: 0 .18em;
+  margin-left: .1em;
+  border-radius: .18em;
+  background: color-mix(in srgb, var(--fg) 7%, transparent);
+  box-shadow: inset 0 -.09em 0 var(--green);
+  transition: background-color .8s, box-shadow .8s;
+}
+.b2b-blank-word {
+  color: var(--green-ink);
+  opacity: 0;
+  filter: blur(calc(var(--u) * .5));
+  transition: opacity .9s var(--ease-out), filter .9s var(--ease-out), text-shadow .9s;
+}
+.b2b-cursor {
+  position: absolute;
+  left: .2em;
+  top: .14em;
+  bottom: .14em;
+  width: .08em;
+  background: var(--green);
+  box-shadow: var(--glow-green);
+  animation: b2b-blink 1s steps(1, end) infinite;
+}
+@keyframes b2b-blink { 50% { opacity: 0; } }
+.b2b-nw[data-cur-step="1"] .b2b-blank { background: var(--green-soft); box-shadow: inset 0 -.09em 0 var(--green), var(--glow-green); }
+.b2b-nw[data-cur-step="1"] .b2b-blank-word { opacity: 1; filter: none; text-shadow: var(--glow-green), var(--text-shadow); transition-delay: 1.3s; }
+.b2b-nw[data-cur-step="1"] .b2b-cursor { opacity: 0; animation: none; }
+.b2b-cap-lg { font-family: var(--font-display); font-weight: 700; font-size: calc(var(--u) * 2.05); white-space: nowrap; }
+/* «?» — крупнее и «покачивается», но стоит на базовой линии вплотную к слову */
+.b2b-qmark { display: inline-block; margin-left: .02em; font-size: 1.3em; line-height: .8; text-shadow: var(--glow-green); transform-origin: 50% 92%; animation: b2b-q 2.4s var(--ease-in-out) infinite; }
+@keyframes b2b-q { 0%, 100% { transform: none; } 50% { transform: rotate(10deg); } }
+.b2b-cand {
+  display: inline-block;
+  padding: .2em .7em .26em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 2px solid var(--panel-border);
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: calc(var(--u) * 1.9);
+  color: var(--fg);
+  transition: opacity .6s, transform .6s var(--ease-back), border-color .6s, box-shadow .6s, color .6s;
+}
+.b2b-cand.is-win { border-color: var(--green-line); }
+.label3d.is-won .b2b-cand { background: var(--green); color: #000; border-color: var(--green); box-shadow: var(--glow-green); transform: scale(1.12); }
+.label3d.is-lost .b2b-cand { opacity: .35; transform: scale(.88); }
+.b2b-q {
+  position: absolute;
+  left: var(--pad-x);
+  top: 50%;
+  transform: translateY(-50%);
+  width: calc(var(--u) * 50);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: calc(var(--u) * 1.8);
+}
+.slide .b2b-q[data-step] { transition: none; }
+.slide .b2b-q[data-step]:not(.is-shown) { opacity: 1; transform: translateY(-50%); }
+.b2b-q > * { transition: opacity var(--t-reveal) var(--ease-out) var(--d, 0s), transform var(--t-reveal) var(--ease-out) var(--d, 0s); }
+.slide .b2b-q:not(.is-shown) > * { opacity: 0; transform: translateY(calc(var(--u) * 2)); transition-delay: 0s; transition-duration: .4s; }
+.b2b-q-title { font-family: var(--font-display); font-weight: 800; font-size: calc(var(--u) * 4.6); line-height: 1.05; letter-spacing: -.03em; text-wrap: balance; text-shadow: var(--text-shadow); }
+.b2b-q-lead { font-size: calc(var(--u) * 2.6); font-weight: 600; line-height: 1.2; color: var(--fg-2); text-shadow: var(--text-shadow); }
+.b2b-q-ask { font-family: var(--font-display); font-weight: 800; font-size: calc(var(--u) * 3.6); line-height: 1.1; color: var(--green-ink); text-shadow: var(--glow-green), var(--text-shadow); }
+
+/* Цвет «инея» (замороженные веса) — свой для каждой темы */
+:root { --b2b-ice: rgba(191, 230, 255, .6); }
+:root[data-theme="light"] { --b2b-ice: rgba(30, 100, 150, .5); }

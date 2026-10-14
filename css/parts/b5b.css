@@ -1,0 +1,181 @@
+/* ==========================================================================
+   Часть «b5b» — Блок 5 «Побег из песочницы», вторая половина.
+   Все классы — с префиксом .b5b-; цвета — только через CSS-переменные.
+   ========================================================================== */
+
+/* ---------- Шапка слайда (кикер + заголовок) ---------------------------- */
+.b5b-stage .b5b-head {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * .5);
+  max-width: calc(var(--u) * 56);
+}
+.b5b-stage .b5b-head .t-title { font-size: calc(var(--u) * 4.2); }
+
+/* ---------- Текст шага внизу слева --------------------------------------- */
+.b5b-note {
+  position: absolute;
+  left: var(--pad-x);
+  bottom: calc(var(--u) * 3.6);
+  max-width: calc(var(--u) * 66);
+  padding: calc(var(--u) * 1.3) calc(var(--u) * 2.2) calc(var(--u) * 1.4);
+  border-radius: var(--radius-lg);
+  border: 2px solid var(--panel-border);
+  border-left: calc(var(--u) * .55) solid var(--green);
+  background: var(--panel-strong);
+  font-size: calc(var(--u) * 2.3);
+  font-weight: 600;
+  line-height: 1.24;
+  text-wrap: pretty;
+  text-shadow: var(--text-shadow);
+}
+.b5b-note b { color: var(--green-ink); font-weight: 800; }
+.b5b-note.is-accent { border-color: var(--green-line); border-left-color: var(--green); box-shadow: var(--glow-green); }
+.b5b-note.is-danger { border-left-color: var(--red); }
+.b5b-note.is-danger b { color: var(--red); }
+
+/* ---------- Нижняя подпись части ---------------------------------------- */
+.b5b-caption .panel { font-size: var(--fs-lead); font-weight: 600; padding: .5em 1.2em !important; }
+.b5b-caption.is-long { max-width: calc(var(--u) * 80); }
+.b5b-caption.is-long .panel { font-size: calc(var(--u) * 2.15); border-radius: var(--radius-lg) !important; }
+
+/* ---------- Подписи у 3D-объектов --------------------------------------- */
+.b5b-lbl {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: .12em;
+  padding: .4em .85em .45em;
+  border-radius: calc(var(--u) * 1.1);
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  text-align: center;
+  white-space: nowrap;
+  transition: opacity .5s var(--ease-out), border-color .5s, box-shadow .5s, transform .6s var(--ease-back);
+}
+.b5b-lbl-t {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.05);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.01em;
+}
+.b5b-lbl-s {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.15;
+  color: var(--fg-2);
+}
+.b5b-lbl.is-accent { border-color: var(--green); box-shadow: var(--glow-green); }
+.b5b-lbl.is-danger { border-color: var(--red); box-shadow: 0 0 calc(var(--u) * 1.4) rgba(255, 59, 48, .45); }
+.b5b-lbl.is-danger .b5b-lbl-t { color: var(--red); }
+/* ещё не достигнутый узел: приглушён, но читается с последних рядов */
+.b5b-lbl.is-dim { opacity: .55; border-color: var(--panel-border); box-shadow: none; }
+.b5b-lbl.is-dim .b5b-lbl-t { color: var(--fg-2); }
+
+.b5b-lbl.is-danger-soft { border-color: color-mix(in srgb, var(--red) 70%, transparent); box-shadow: 0 0 calc(var(--u) * 1.2) rgba(255, 59, 48, .3); }
+
+/* Месяцы на дуге таймлайна */
+.b5b-month {
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 700;
+  letter-spacing: .06em;
+  color: var(--fg-3);
+  transition: color .5s, text-shadow .5s, transform .5s var(--ease-back);
+}
+.label3d.is-on .b5b-month { color: var(--fg); text-shadow: var(--glow-green), var(--text-shadow); }
+
+/* «Я выбрался» — письмо */
+.b5b-mail {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.3);
+  font-weight: 800;
+  letter-spacing: -.01em;
+  padding: .34em .9em .4em;
+  border-radius: 999px;
+  background: var(--fg);
+  color: var(--bg);
+  white-space: nowrap;
+  text-shadow: none;
+  box-shadow: 0 0 calc(var(--u) * 2.2) rgba(0, 255, 0, .5);
+}
+.b5b-bang {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 5);
+  font-weight: 900;
+  line-height: 1;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green), var(--text-shadow);
+}
+
+/* Появление подписей «с пружинкой» */
+.label3d.b5b-pop > .l-in > * { transition: transform .65s var(--ease-back), opacity .5s var(--ease-out); }
+.label3d.b5b-pop.is-hidden > .l-in > * { transform: scale(.55); }
+
+/* ---------- Вопрос №9 ------------------------------------------------------ */
+.b5b-q9 .q { gap: calc(var(--u) * 1.7); }
+.b5b-q9 .q-badge { order: 0; }
+.b5b-q9 .b5b-context { order: 1; }
+.b5b-q9 .q-text { order: 2; max-width: calc(var(--u) * 50); font-size: calc(var(--u) * 3.6); }
+.b5b-q9 .q-options { order: 3; margin-top: calc(var(--u) * .4); }
+.b5b-q9 .q-answer { order: 4; max-width: calc(var(--u) * 80); }
+.b5b-q9 .q > .row { order: 5; }
+.b5b-context {
+  display: flex;
+  align-items: baseline;
+  gap: calc(var(--u) * 1.1);
+  max-width: calc(var(--u) * 60);
+  font-size: var(--fs-body);
+  font-weight: 600;
+  line-height: 1.25;
+  color: var(--fg-2);
+  text-shadow: var(--text-shadow);
+}
+.b5b-date {
+  flex: none;
+  padding: .12em .55em;
+  border-radius: .4em;
+  border: 2px solid var(--red);
+  color: var(--fg);
+  font-family: var(--font-display);
+  font-size: var(--fs-label);
+  font-weight: 800;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+.b5b-q9 .q-option { min-height: calc(var(--u) * 7.6); font-size: calc(var(--u) * 2.3); }
+
+/* ---------- Финальный кадр ------------------------------------------------ */
+.b5b-risk-title {
+  align-self: center;
+  max-width: calc(var(--u) * 80);
+  text-align: center;
+  font-size: calc(var(--u) * 3.4);
+}
+/* по центру сцены без transform — анимация появления (translateY) не сбивает положение */
+.b5b-risk-note { left: 0; right: 0; margin-inline: auto; width: max-content; max-width: calc(var(--u) * 86); text-align: center; text-wrap: pretty; }
+
+/* ---------- Штамп у 3D-объекта ------------------------------------------- */
+.b5b-stamp { font-size: calc(var(--u) * 4.4); }
+.label3d.b5b-stamp-wrap > .l-in > .stamp { transition: transform .42s cubic-bezier(.5, 0, .75, 0), opacity .2s linear; }
+.label3d.b5b-stamp-wrap.is-hidden > .l-in > .stamp { transform: rotate(var(--rot, -8deg)) scale(2.6); opacity: 0; transition-duration: .2s; }
+.label3d.b5b-stamp-wrap:not(.is-hidden) > .l-in > .stamp { animation: stamp-shake .35s ease-out .42s; }
+
+/* Зачёркивание «Злодей из кино» */
+.b5b-struck { position: relative; display: inline-block; }
+.b5b-struck::after {
+  content: '';
+  position: absolute;
+  left: -7%; right: -7%;
+  top: 50%;
+  height: .16em;
+  border-radius: .08em;
+  background: var(--red);
+  box-shadow: 0 0 calc(var(--u) * .8) rgba(255, 59, 48, .7);
+  transform: rotate(-7deg) scaleX(0);
+  transform-origin: left center;
+  transition: transform .45s var(--ease-out);
+}
+.b5b-lbl.is-struck .b5b-struck::after { transform: rotate(-7deg) scaleX(1); }
+.b5b-lbl.is-struck .b5b-lbl-t { color: var(--fg-2); }

@@ -1,0 +1,254 @@
+/* ==========================================================================
+   Часть «b8» — Блок 8 «Вердикт» и финал лекции
+   ========================================================================== */
+
+/* ---------- Повторное голосование ---------------------------------------- */
+.b8-swap { display: grid; }
+.b8-swap > * { grid-area: 1 / 1; }
+/* пока полоски «перетекают» из начала лекции — разница скрыта, затем выскакивает */
+.vote.b8-flowing .vote-delta { opacity: 0 !important; transform: scale(.6) !important; }
+/* если «снимка» начала нет (голосование №1 пропустили) — пустые плашки разницы не показываем */
+.slide--b8-revote .vote-delta:empty { display: none; }
+/* разница — крупно, под подсказкой слева (справа длинные заголовки и подпись «в начале»).
+   Ядро привязывает плашку к низу карточки (bottom) — сбрасываем, иначе top + bottom растянут её по высоте. */
+.slide--b8-revote .vote-delta {
+  top: calc(var(--u) * 10.6);
+  bottom: auto;
+  right: auto;
+  left: calc(var(--u) * 1.8);
+  padding: calc(var(--u) * .3) calc(var(--u) * 1.2);
+  font-size: calc(var(--u) * 3);
+  letter-spacing: -.02em;
+  box-shadow: 0 0 calc(var(--u) * 1.6) rgba(0, 0, 0, .55);
+}
+
+/* подпись пунктира «в начале» — на плашке: не теряется на зелёной заливке и её верхней линии */
+.slide--b8-revote .vote-ghost::after {
+  padding: 0 calc(var(--u) * .6);
+  border-radius: 999px;
+  background: var(--panel-strong);
+}
+
+/* ---------- Финальная мысль: фразы сменяют друг друга на одном месте ---- */
+.b8-stack { display: grid; align-items: center; width: 100%; }
+.b8-stack > * { grid-area: 1 / 1; }
+.b8-say { display: flex; flex-direction: column; align-items: flex-start; gap: calc(var(--u) * 1.6); }
+.b8-ask {
+  font-family: var(--font-display);
+  font-size: var(--fs-h2);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b8-no {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 13);
+  font-weight: 800;
+  line-height: .92;
+  letter-spacing: -.05em;
+  color: var(--green-ink);
+  text-shadow: var(--glow-green), var(--text-shadow);
+}
+.b8-big {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3.5);
+  font-weight: 700;
+  line-height: 1.14;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b8-big .accent { text-shadow: var(--glow-green), var(--text-shadow); }
+/* развязка фразы — «маркером»: зелёные плашки по строкам, как .accent-bg */
+.b8-tail {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3.2);
+  font-weight: 800;
+  line-height: 1.3;
+  letter-spacing: -.02em;
+}
+.b8-tail > span {
+  padding: .02em .28em .06em;
+  border-radius: .16em;
+  background: var(--green);
+  color: #000;
+  box-decoration-break: clone;
+  -webkit-box-decoration-break: clone;
+  box-shadow: 0 0 calc(var(--u) * 2) rgba(0, 255, 0, .35);
+}
+.b8-pre {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.25;
+  color: var(--fg-2);
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+
+/* ---------- Обратный путь: крупная подпись и «карта» пути ---------------- */
+.b8-ring {
+  position: absolute;
+  left: 0; right: 0;
+  bottom: calc(var(--u) * 3.4);
+  display: flex;
+  justify-content: center;
+  pointer-events: none;
+}
+.b8-ring-in { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.8); }
+.b8-ring-cap {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 4);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: var(--text-shadow);
+}
+.b8-route {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(5, calc(var(--u) * 12.5));
+}
+.b8-route-track {
+  position: absolute;
+  left: calc(var(--u) * 6.25);
+  right: calc(var(--u) * 6.25);
+  top: calc(var(--u) * 1.1 - var(--u) * .2);
+  height: calc(var(--u) * .4);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--fg) 22%, transparent);
+}
+.b8-route-fill {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--green);
+  box-shadow: var(--glow-green);
+  transform-origin: left center;
+  transform: scaleX(var(--to));
+  animation: b8-route-fill 1.5s var(--ease-in-out) .45s both;
+}
+@keyframes b8-route-fill {
+  from { transform: scaleX(var(--from)); }
+  to { transform: scaleX(var(--to)); }
+}
+.b8-route-node { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .7); }
+.b8-route-dot {
+  position: relative;
+  z-index: 1;
+  width: calc(var(--u) * 2.2);
+  height: calc(var(--u) * 2.2);
+  border-radius: 50%;
+  border: calc(var(--u) * .3) solid var(--line-strong);
+  background: var(--bg);
+}
+.b8-route-node.is-past .b8-route-dot { background: var(--green); border-color: var(--green); }
+.b8-route-node.is-cur .b8-route-dot {
+  background: var(--fg);
+  border-color: var(--green);
+  box-shadow: 0 0 0 calc(var(--u) * .45) var(--green-soft), var(--glow-green);
+  animation: b8-dot 1.9s ease-in-out 1.6s infinite;
+}
+@keyframes b8-dot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.22); }
+}
+.b8-route-label {
+  font-size: var(--fs-label);
+  font-weight: 600;
+  line-height: 1.15;
+  white-space: nowrap;
+  color: var(--fg-3);
+  text-shadow: var(--text-shadow);
+}
+.b8-route-node.is-past .b8-route-label { color: var(--fg-2); }
+.b8-route-node.is-cur .b8-route-label { color: var(--fg); font-weight: 800; }
+
+/* ---------- Финальный титр ----------------------------------------------- */
+/* два такта: «Думайте сами.» (халфтон-проявление на клик) → «Поехали!» (вспышка в момент отрыва ракеты) */
+.b8-final-title {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 8.2);
+  font-weight: 800;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: var(--text-shadow);
+  padding: calc(var(--u) * 3.3) calc(var(--u) * 2);
+}
+.b8-final-title > span { display: block; }
+/* тень текста — внутри рамки строки: халфтон-маска обрезает всё, что за её пределами */
+.b8-ft-think { padding: calc(var(--u) * 1.2) calc(var(--u) * 2); margin: calc(var(--u) * -1.2) 0; }
+.b8-ft-go { text-shadow: var(--glow-green), var(--text-shadow); }
+.slide--b8-final .b8-ft-go.is-shown { animation: b8-go-flash 1.8s var(--ease-out) var(--d, 0s) both; }
+@keyframes b8-go-flash {
+  0% { text-shadow: 0 0 calc(var(--u) * 4.5) var(--green-hi), 0 0 calc(var(--u) * 1.2) var(--green-hi), var(--text-shadow); }
+  100% { text-shadow: var(--glow-green), var(--text-shadow); }
+}
+/* мягкая «подложка» цвета фона под титром — читается поверх яркого старта; появляется вместе с титром */
+.b8-final-title::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bg) 60%, transparent) 30%, transparent);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s var(--ease-out);
+}
+.slide--b8-final[data-cur-step="1"] .b8-final-title::before { opacity: 1; transition-delay: .1s; }
+.slide--b8-final .slide-kicker { transition: opacity .6s var(--ease-out); }
+.slide--b8-final[data-cur-step="1"] .slide-kicker { opacity: 0; }
+
+/* ---------- Спасибо! Ваши вопросы? -------------------------------------- */
+.b8-thanks {
+  position: relative;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 1.8);
+  margin-bottom: calc(var(--u) * .4);
+}
+/* фон заставки — яркая зелёная полоса снизу: зелёное «Спасибо!» на ней теряется.
+   Мягкая «подложка» цвета фона под блоком возвращает контраст (в светлой теме — светлая). */
+.b8-thanks::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: calc(var(--u) * -3.5) calc(var(--u) * -9);
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--bg) 72%, transparent) 45%, transparent);
+  pointer-events: none;
+  transition: opacity 1s var(--ease-out) .2s;
+}
+.slide--b8-thanks:not(.is-in) .b8-thanks::before { opacity: 0; }
+.b8-thanks-title {
+  /* поля — чтобы тень текста не обрезалась краем халфтон-маски (маска режет всё за рамкой элемента) */
+  padding: calc(var(--u) * 1.6) calc(var(--u) * 3);
+  margin: calc(var(--u) * -1.6) calc(var(--u) * -3);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 5);
+  font-weight: 800;
+  line-height: 1.05;
+  letter-spacing: -.03em;
+  text-align: center;
+  white-space: nowrap;
+  text-shadow: var(--text-shadow);
+}
+.b8-thanks-title .accent { text-shadow: var(--text-shadow), 0 0 calc(var(--u) * 2.4) color-mix(in srgb, var(--bg) 85%, transparent); }
+.b8-thanks-row { display: flex; align-items: center; justify-content: center; gap: calc(var(--u) * 3.4); }
+.b8-thanks-wordmark {
+  width: calc(var(--u) * 21);
+  color: var(--fg);
+  filter: drop-shadow(0 0 calc(var(--u) * 1) rgba(0, 0, 0, .8));
+}
+:root[data-theme="light"] .b8-thanks-wordmark { filter: none; }

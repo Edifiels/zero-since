@@ -1,0 +1,61 @@
+# Сборка и публикация презентации на GitHub Pages.
+# Один раз включите: Settings → Pages → Build and deployment → Source: «GitHub Actions».
+# Дальше каждый push в main (или master) публикует сайт; можно запустить и вручную во вкладке Actions.
+name: Публикация на GitHub Pages
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    name: Проверка и сборка
+    runs-on: ubuntu-latest
+    steps:
+      - name: Получить код
+        uses: actions/checkout@v4
+
+      - name: Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Проверка путей (регистр букв, отсутствующие файлы)
+        run: node tools/check-site.mjs
+
+      - name: Сборка сайта
+        run: |
+          mkdir -p _site
+          cp -r index.html presenter.html css js assets vendor _site/
+          touch _site/.nojekyll
+          echo "Размер сайта:" && du -sh _site
+
+      - name: Настроить Pages
+        uses: actions/configure-pages@v5
+
+      - name: Загрузить сайт
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site
+
+  deploy:
+    name: Публикация
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Опубликовать на GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4

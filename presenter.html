@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ru" data-theme="dark">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Окно спикера — Захватит ли ИИ весь мир?</title>
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/logo/icon-32.png">
+  <link rel="stylesheet" href="css/fonts.css">
+  <link rel="stylesheet" href="css/base.css">
+  <link rel="stylesheet" href="css/presenter.css">
+  <script type="module" src="js/presenter.js"></script>
+</head>
+<body class="presenter">
+  <header class="p-head">
+    <div class="p-block"><span class="p-chip" id="p-block-num">—</span><span id="p-block-title">Ожидание презентации…</span></div>
+    <div class="p-timers">
+      <div class="p-timer"><span class="p-label">Прошло</span><span id="p-elapsed" class="p-big">00:00</span></div>
+      <div class="p-timer"><span class="p-label">По плану</span><span id="p-plan" class="p-mid">—</span></div>
+      <div class="p-timer"><span class="p-label">Темп</span><span id="p-delta" class="p-mid">—</span></div>
+      <div class="p-timer"><span class="p-label">Время</span><span id="p-clock" class="p-mid">--:--</span></div>
+    </div>
+  </header>
+
+  <main class="p-main">
+    <section class="p-current">
+      <div class="p-slide-meta"><span id="p-num">—</span><span id="p-steps" class="p-steps"></span></div>
+      <h1 id="p-title" class="p-title">Откройте презентацию (index.html) в соседнем окне</h1>
+      <div id="p-notes" class="p-notes">Окно спикера синхронизируется с презентацией автоматически. Клавиши здесь тоже листают слайды.</div>
+    </section>
+    <aside class="p-side">
+      <div class="p-next">
+        <div class="p-label">Дальше</div>
+        <div id="p-next-title" class="p-next-title">—</div>
+        <div id="p-next-notes" class="p-next-notes"></div>
+      </div>
+      <div class="p-controls">
+        <button class="p-btn" data-a="prev">◀ Назад</button>
+        <button class="p-btn p-btn-primary" data-a="next">Далее ▶</button>
+        <button class="p-btn" data-a="curtain">Затемнить (B)</button>
+        <button class="p-btn" data-a="timer" id="p-timer-btn">Старт таймера</button>
+        <button class="p-btn" data-a="reset">Сброс таймера</button>
+        <button class="p-btn" data-a="font">Шрифт заметок: A+</button>
+      </div>
+      <div class="p-blocks" id="p-blocks"></div>
+    </aside>
+  </main>
+  <div class="p-toast" id="p-toast"></div>
+</body>
+</html>

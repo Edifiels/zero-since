@@ -1,0 +1,163 @@
+/* ==========================================================================
+   Блок 3 «Муха в матрице» — стили части b3 (префикс .b3-)
+   ========================================================================== */
+
+/* Подписи у 3D-объектов */
+.label3d .b3-tag {
+  display: inline-block;
+  padding: .32em .85em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 1.9);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--fg);
+  text-shadow: none;
+}
+.label3d .b3-tag.is-dim { border-color: var(--line-strong); color: var(--fg-2); }
+.label3d .b3-tag.is-hot { background: var(--green); color: #000; border-color: var(--green); box-shadow: var(--glow-green); }
+.label3d .b3-tick {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.3);
+  font-weight: 800;
+  color: var(--green-ink);
+  text-shadow: var(--text-shadow);
+}
+
+/* Наложение нескольких «шаговых» блоков в одном месте колонки */
+.b3-stack { display: grid; width: 100%; }
+.b3-stack > * { grid-area: 1 / 1; }
+
+.b3-kicker { display: inline-flex; align-items: center; gap: calc(var(--u) * .8); }
+.b3-kicker .mark { width: .95em; height: 1.13em; color: var(--green-ink); }
+
+.b3-title { font-size: calc(var(--u) * 4.2); }
+.b3-title.b3-title-md { font-size: calc(var(--u) * 3.75); }   /* «ИИ раскрашивает» — в одну строку */
+.b3-lead { color: var(--fg-2); margin-top: calc(var(--u) * 1.2); }
+
+/* Подпись внизу — крупнее обычной */
+.b3-cap-big { font-size: calc(var(--u) * 2.1); }
+.b3-cap-big b { color: var(--green-ink); font-weight: 800; }
+/* В раскладке l-left подпись — часть левой колонки (справа 3D-сцена): ровно по краю текста, а не со сдвигом */
+.slide[class*="slide--b3-"] .l-left > .caption-bar { left: var(--pad-x); right: auto; width: calc(var(--u) * 46); justify-content: flex-start; text-align: left; }
+.slide[class*="slide--b3-"] .l-left > .caption-bar > .panel { text-align: center; }
+
+/* ---------- Вопрос №5: варианты в одну строку, без вылезания за карточку ---- */
+.slide--b3-q5 .stage.l-left > * { max-width: calc(var(--u) * 49); }
+.slide--b3-q5 .q-options { gap: calc(var(--u) * 1.4); }
+.slide--b3-q5 .q-option {
+  min-height: calc(var(--u) * 7.6);
+  padding: calc(var(--u) * 1.2) calc(var(--u) * 1.5);
+  gap: calc(var(--u) * 1);
+  font-size: calc(var(--u) * 2.35);
+  white-space: nowrap;
+}
+.slide--b3-q5 .q-option .q-letter { width: calc(var(--u) * 3.6); height: calc(var(--u) * 3.6); }
+
+/* ---------- Проверка хайпа: штампы ложатся на 3D-газету ------------------ */
+.b3-hype-stamps { position: absolute; inset: 0; pointer-events: none; }
+.b3-hype-stamps .stamp {
+  position: absolute;
+  font-size: calc(var(--u) * 2.7);
+  line-height: 1.1;
+  text-align: center;
+  background: var(--panel-strong);
+  box-shadow: 0 0 calc(var(--u) * 2) rgba(0, 0, 0, .45);
+  /* «потёртость» штампа мягче, чем у базового: плашка почти сплошная — заголовок газеты не просвечивает сквозь буквы */
+  -webkit-mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.78'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+  mask-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='2'/><feColorMatrix values='0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -1.4 1.78'/></filter><rect width='160' height='160' filter='url(%23n)'/></svg>");
+}
+/* первый штамп — поперёк шапки газеты: громкий заголовок под ним остаётся читаемым */
+.b3-hype-stamps .b3-st1 { left: calc(var(--u) * 54); top: calc(var(--u) * 8.4); }
+.b3-hype-stamps .b3-st2 { left: calc(var(--u) * 52); top: calc(var(--u) * 35); }
+.b3-hype-stamps .stamp { white-space: nowrap; }
+
+/* ---------- Курьёз: DOOM -------------------------------------------------- */
+.b3-doom {
+  position: absolute;
+  left: calc(var(--u) * 17);
+  top: calc(var(--u) * 8.6);
+  width: calc(var(--u) * 66);
+  height: calc(var(--u) * 37.125);
+  pointer-events: none;
+  color: #b6ffb0;
+  text-shadow: 0 0 calc(var(--u) * .6) rgba(0, 255, 0, .6), 0 calc(var(--u) * .2) 0 #000;
+}
+.b3-doom-top { position: absolute; left: calc(var(--u) * 2); top: calc(var(--u) * 1.8); font-size: calc(var(--u) * 1.6); }
+.b3-doom-msg {
+  display: inline-block;
+  padding: .45em .7em .35em;
+  background: rgba(0, 12, 2, .82);
+  border: calc(var(--u) * .2) solid #1f7a1f;
+  border-radius: calc(var(--u) * .3);
+}
+.b3-doom-msg.is-on { animation: b3-blink .9s steps(2) 2; }
+@keyframes b3-blink { 50% { opacity: .15; } }
+.b3-doom-hud {
+  position: absolute;
+  left: calc(var(--u) * 1.4); right: calc(var(--u) * 1.4); bottom: calc(var(--u) * 1.4);
+  height: calc(var(--u) * 6.6);
+  display: grid;
+  grid-template-columns: 1fr calc(var(--u) * 6.6) 1fr;
+  align-items: center;
+  gap: calc(var(--u) * 1.5);
+  padding: 0 calc(var(--u) * 2);
+  background: rgba(0, 12, 2, .82);
+  border: calc(var(--u) * .25) solid #1f7a1f;
+  border-radius: calc(var(--u) * .4);
+}
+.b3-hud-cell { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .5); }
+.b3-hud-cell b { font-weight: 400; font-size: calc(var(--u) * 2.4); line-height: 1; color: #d8ffd0; }
+.b3-hud-cell span { font-size: calc(var(--u) * 1.45); color: #3fd23f; }
+.b3-hud-face {
+  width: calc(var(--u) * 5.6); height: calc(var(--u) * 5.6);
+  justify-self: center;
+  background: #021a05 var(--face) center / contain no-repeat;
+  image-rendering: pixelated;
+  border: calc(var(--u) * .2) solid #1f7a1f;
+}
+.b3-hud-face.is-hurt { background-image: var(--face-hurt); animation: b3-shake .25s steps(3) 2; }
+@keyframes b3-shake { 33% { transform: translateX(calc(var(--u) * -.3)); } 66% { transform: translateX(calc(var(--u) * .3)); } }
+.b3-doom-bad {
+  position: absolute; left: 0; right: 0; top: 34%;
+  text-align: center;
+  font-size: calc(var(--u) * 7);
+  color: var(--orange);
+  text-shadow: 0 0 calc(var(--u) * 1.5) rgba(255, 138, 31, .65), 0 calc(var(--u) * .4) 0 #000;
+}
+.b3-doom-bad.is-shown { animation: b3-blink 1s steps(2) 3 .6s; }
+.b3-bad-word { color: var(--orange); font-weight: 800; }
+:root[data-theme="light"] .b3-doom { text-shadow: none; }
+
+/* ---------- Лестница масштабов ------------------------------------------- */
+.label3d .b3-lad {
+  display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * .2);
+  padding: calc(var(--u) * .6) calc(var(--u) * 1.2);
+  border-radius: var(--radius);
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  text-shadow: none;
+}
+.label3d .b3-lad b { font-family: var(--font-display); font-size: calc(var(--u) * 2.3); font-weight: 800; color: var(--green-ink); line-height: 1; }
+.label3d .b3-lad span { font-family: var(--font-display); font-size: calc(var(--u) * 1.7); font-weight: 700; color: var(--fg); }
+
+/* ---------- Голосование №6 ----------------------------------------------- */
+.slide--b3-vote .stage { gap: calc(var(--u) * 1.3); }
+.b3-vote-head { display: flex; flex-direction: column; gap: calc(var(--u) * 1.1); }
+.b3-vote-head .q-badge { align-self: flex-start; }
+.b3-vote-q { font-size: calc(var(--u) * 2.75); max-width: calc(var(--u) * 86); }
+.slide--b3-vote .vote { height: calc(var(--u) * 22); flex: none; }
+/* подпись — в потоке под подсказкой голосования (не наезжает на кнопку «Сбросить»), прижата к низу сцены */
+.slide--b3-vote .b3-vote-note { position: static; margin-top: auto; }
+.b3-vote-note { text-align: center; color: var(--fg-2); }
+.b3-vote-note b { color: var(--green-ink); }
+.b3-ladder-title { font-size: calc(var(--u) * 3.4); }
+.label3d .b3-tick.is-sm { font-size: calc(var(--u) * 1.6); font-weight: 700; color: var(--fg-2); }
+
+/* Счётчики коннектома: сначала число, под ним подпись */
+.b3-counters { display: flex; flex-direction: column; gap: calc(var(--u) * 2.2); }
+.b3-counters .counter-block { flex-direction: column-reverse; gap: calc(var(--u) * .3); }
+.b3-counters .counter-block .c-label { font-size: calc(var(--u) * 2.3); }
+.label3d .b3-lad.is-next { border-color: var(--green); box-shadow: var(--glow-green); }

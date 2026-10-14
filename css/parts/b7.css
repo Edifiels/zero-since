@@ -1,0 +1,325 @@
+/* ==========================================================================
+   Блок 7 «Не отдавайте мозг на аутсорс» — стили части (префикс .b7-)
+   ========================================================================== */
+
+/* Свечение зелёного текста, которое не обрезается контейнером (drop-shadow) */
+:root { --b7-glow: rgba(0, 255, 0, .5); }
+:root[data-theme="light"] { --b7-glow: rgba(0, 150, 0, .3); }
+
+/* ---------- Вечный страх ------------------------------------------------- */
+.l-left > .b7-fear-col { max-width: calc(var(--u) * 41); }
+.b7-fear-col {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 1.5);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out), filter .7s var(--ease-out);
+}
+.b7-quote {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3.3);
+  font-weight: 700;
+  line-height: 1.13;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+  transition: opacity .8s var(--ease-out), font-size .8s var(--ease-out);
+}
+.b7-cite {
+  font-size: var(--fs-caption);
+  font-weight: 500;
+  line-height: 1.3;
+  color: var(--fg-2);
+  text-shadow: var(--text-shadow);
+}
+.slide:not([data-cur-step="0"]) .b7-quote { opacity: .72; }
+.b7-era { display: flex; flex-direction: column; gap: calc(var(--u) * .5); margin-top: calc(var(--u) * 1.6); }
+.b7-again {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  color: var(--fg-2);
+  text-shadow: var(--text-shadow);
+}
+.b7-slot {
+  --slot-h: 1.18em;
+  height: var(--slot-h);
+  overflow: hidden;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 4.4);
+  font-weight: 800;
+  letter-spacing: -.03em;
+  line-height: var(--slot-h);
+  color: var(--green-ink);
+  filter: drop-shadow(0 0 calc(var(--u) * .9) var(--b7-glow));
+}
+.b7-slot-track {
+  transform: translateY(calc(clamp(0, var(--step, 1) - 1, 4) * var(--slot-h) * -1));
+  transition: transform .95s cubic-bezier(.68, -0.32, .26, 1.32);
+}
+.b7-slot-track > span {
+  display: block;
+  height: var(--slot-h);
+  white-space: nowrap;
+}
+.l-left > .b7-fear-final { max-width: none; }
+.b7-fear-final {
+  position: absolute;
+  left: var(--pad-x);
+  right: var(--pad-x);
+  top: calc(var(--u) * 9);
+  text-align: center;
+}
+.b7-fear-final .t-title { font-size: calc(var(--u) * 4.8); }
+
+/* Подписи эпох у 3D-ряда */
+.label3d .b7-era-lab {
+  display: inline-block;
+  font-family: var(--font-text);
+  font-size: calc(var(--u) * 1.8);
+  font-weight: 700;
+  letter-spacing: -.01em;
+  color: var(--fg);
+  text-shadow: var(--text-shadow);
+}
+.label3d .b7-era-lab.is-now { color: var(--green-ink); }
+
+/* ---------- Общие подписи у 3D-объектов ---------------------------------- */
+.label3d .b7-big {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 4.6);
+  font-weight: 800;
+  letter-spacing: -.035em;
+  line-height: 1;
+  text-shadow: var(--text-shadow);
+}
+.label3d .b7-big.accent { color: var(--green-ink); text-shadow: var(--glow-green), var(--text-shadow); }
+.label3d .b7-big.warn { color: var(--orange); }
+.label3d .b7-tag {
+  display: inline-block;
+  padding: .28em .8em;
+  border-radius: 999px;
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  font-size: calc(var(--u) * 1.75);
+  font-weight: 700;
+  color: var(--fg);
+}
+.label3d .b7-tag.is-warn { border-color: var(--orange); }
+.label3d .b7-ctl {
+  display: inline-block;
+  padding-left: calc(var(--u) * .6);
+  font-size: calc(var(--u) * 1.75);
+  font-weight: 700;
+  color: var(--fg-2);
+}
+.label3d .b7-ai {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.2);
+  font-weight: 800;
+  color: #000;
+  text-shadow: 0 0 calc(var(--u) * .6) rgba(0, 255, 0, .9);
+}
+:root[data-theme="light"] .label3d .b7-ai { color: #fff; }
+.label3d .b7-stamp-lab {
+  display: inline-block;
+  padding: calc(var(--u) * .5) calc(var(--u) * 1.4);
+  border: calc(var(--u) * .35) solid var(--orange);
+  border-radius: calc(var(--u) * .7);
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.4);
+  font-weight: 900;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--orange);
+  background: color-mix(in srgb, var(--orange) 10%, var(--panel-strong));
+  transform: rotate(-8deg);
+}
+.label3d:not(.is-hidden) .b7-stamp-lab { animation: b7-stamp .5s cubic-bezier(.5, 0, .75, 0) both; }
+@keyframes b7-stamp {
+  0% { transform: rotate(-8deg) scale(2.3); opacity: 0; }
+  100% { transform: rotate(-8deg) scale(1); opacity: 1; }
+}
+.label3d .b7-day {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.6);
+  font-weight: 700;
+  color: var(--fg);
+  text-shadow: var(--text-shadow);
+  font-variant-numeric: tabular-nums;
+}
+.label3d .b7-day b { color: var(--green-ink); font-weight: 800; }
+
+/* ---------- Эксперимент со школьниками ---------------------------------- */
+.l-left > .b7-pages { max-width: calc(var(--u) * 40); }
+.b7-pages { display: grid; width: 100%; }
+.b7-page { grid-area: 1 / 1; display: flex; flex-direction: column; gap: calc(var(--u) * 1.6); align-self: center; }
+.b7-point {
+  font-size: var(--fs-lead);
+  font-weight: 500;
+  line-height: 1.25;
+  text-wrap: pretty;
+  text-shadow: var(--text-shadow);
+}
+.b7-point b { font-weight: 800; }
+
+/* ---------- Два мозга ------------------------------------------------------ */
+.label3d .b7-brain-lab {
+  display: inline-block;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3);
+  font-weight: 800;
+  letter-spacing: -.025em;
+  color: var(--fg-2);
+  text-shadow: var(--text-shadow);
+}
+.label3d .b7-brain-lab.is-on { color: var(--green-ink); text-shadow: var(--glow-green), var(--text-shadow); }
+.b7-pill { display: inline-block; padding: .45em 1.2em; border-radius: 999px; }
+.b7-stmt {
+  position: absolute;
+  left: 50%;
+  bottom: calc(var(--u) * 3.6);
+  width: calc(var(--u) * 82);
+  margin-left: calc(var(--u) * -41);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: calc(var(--u) * 1.2);
+  text-align: center;
+}
+.b7-stmt-text {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.9);
+  font-weight: 700;
+  line-height: 1.15;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b7-stmt-text b { color: var(--fg); font-weight: 800; text-decoration: underline; text-decoration-color: var(--orange); text-decoration-thickness: .08em; text-underline-offset: .14em; }
+.b7-age { font-size: calc(var(--u) * 2.1); font-family: var(--font-display); font-weight: 700; padding: .35em 1em; }
+
+/* ---------- Мышца мышления ----------------------------------------------- */
+.l-left > .b7-muscle-col { max-width: calc(var(--u) * 41); }
+.b7-muscle-col { display: flex; flex-direction: column; gap: calc(var(--u) * 2.2); }
+.b7-mtitle { font-size: calc(var(--u) * 4.2); }
+.b7-mstack { display: grid; }
+.b7-mrows, .b7-good { grid-area: 1 / 1; align-self: start; }
+.b7-mrows { display: flex; flex-direction: column; gap: calc(var(--u) * 2.2); }
+.b7-mrow {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.6);
+  transition: opacity .7s var(--ease-out), transform .7s var(--ease-out), filter .7s var(--ease-out);
+}
+.b7-mico {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 5.2);
+  height: calc(var(--u) * 5.2);
+  border-radius: 50%;
+  border: calc(var(--u) * .25) solid currentColor;
+  color: var(--green-ink);
+  box-shadow: var(--glow-green);
+}
+.b7-mico svg { width: 58%; height: 58%; }
+.b7-mrow.is-down .b7-mico { color: var(--orange); box-shadow: none; }
+.b7-mrow-t {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3.3);
+  font-weight: 800;
+  letter-spacing: -.025em;
+  line-height: 1.05;
+  text-shadow: var(--text-shadow);
+}
+.b7-mrow-s { font-size: var(--fs-lead); font-weight: 500; color: var(--fg-2); text-shadow: var(--text-shadow); }
+.b7-mrow.is-up .b7-mrow-t { color: var(--green-ink); }
+.slide[data-cur-step="1"] .b7-mrow.is-up { opacity: .42; filter: saturate(.3); }
+.b7-good {
+  display: flex;
+  flex-direction: column;
+  gap: calc(var(--u) * 1.1);
+  padding: calc(var(--u) * 1.8) calc(var(--u) * 2.2);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  box-shadow: var(--glow-green);
+}
+.b7-good-t { font-size: var(--fs-lead); font-weight: 600; line-height: 1.22; text-wrap: balance; }
+.b7-good-t b { font-weight: 800; }
+.b7-order { display: flex; flex-wrap: wrap; align-items: center; gap: calc(var(--u) * .8); }
+.b7-order > span {
+  display: inline-flex;
+  align-items: center;
+  padding: .3em .85em;
+  border-radius: 999px;
+  font-size: calc(var(--u) * 1.85);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.b7-o1 { background: var(--green); color: #000; }
+.b7-o2 { border: 2px solid var(--line-strong); color: var(--fg); }
+.b7-o1::after { content: '→'; margin-left: .55em; font-weight: 800; }
+
+/* ---------- Руки (интерактив №11) ----------------------------------------- */
+.b7-hands-top { display: flex; flex-direction: column; align-items: center; gap: calc(var(--u) * 1.6); text-align: center; margin-top: calc(var(--u) * .4); }
+.b7-badge { align-self: center; }
+.b7-hq-wrap { display: grid; width: 100%; }
+.b7-hq {
+  grid-area: 1 / 1;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 3.6);
+  font-weight: 700;
+  line-height: 1.12;
+  letter-spacing: -.02em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+  max-width: calc(var(--u) * 80);
+  justify-self: center;
+}
+
+/* ---------- Правила --------------------------------------------------------- */
+.l-left > .b7-rules-col { max-width: calc(var(--u) * 44); }
+.b7-rules-col { display: grid; width: 100%; }
+.b7-rules-page, .b7-final { grid-area: 1 / 1; display: flex; flex-direction: column; gap: calc(var(--u) * 1.5); align-self: center; }
+.b7-rules { display: flex; flex-direction: column; gap: calc(var(--u) * 1.1); }
+.b7-rule {
+  display: flex;
+  align-items: center;
+  gap: calc(var(--u) * 1.5);
+  padding: calc(var(--u) * 1.1) calc(var(--u) * 1.8) calc(var(--u) * 1.1) calc(var(--u) * 1.1);
+  border-radius: var(--radius-lg);
+  background: var(--panel-strong);
+  border: 2px solid var(--green-line);
+  box-shadow: 0 0 calc(var(--u) * 1.2) rgba(0, 255, 0, .18);
+}
+.b7-rule-n {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: calc(var(--u) * 4.4);
+  height: calc(var(--u) * 4.4);
+  border-radius: 50%;
+  background: var(--green);
+  color: #000;
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 2.4);
+  font-weight: 800;
+}
+.b7-rule-t { font-size: calc(var(--u) * 2.4); font-weight: 700; line-height: 1.15; text-wrap: balance; }
+.b7-rule.is-empty { background: transparent; border: calc(var(--u) * .22) dashed var(--line-strong); box-shadow: none; }
+.b7-rule.is-empty .b7-rule-n { background: transparent; border: calc(var(--u) * .22) dashed var(--fg-2); color: var(--fg-2); }
+.b7-rule.is-empty .b7-rule-t { color: var(--fg-2); font-style: italic; }
+/* плашка «Приз» — в одну строку, но не расширяет колонку правил (ширина строки = 0, плашка выходит за неё) */
+.b7-prize-row { display: flex; width: 0; overflow: visible; }
+.b7-prize-row .prize { white-space: nowrap; flex: none; }
+.b7-final-lead { font-size: var(--fs-lead); font-weight: 500; color: var(--fg-2); line-height: 1.25; text-wrap: balance; text-shadow: var(--text-shadow); }
+.b7-final-title {
+  font-family: var(--font-display);
+  font-size: calc(var(--u) * 4.5);
+  font-weight: 800;
+  line-height: 1.06;
+  letter-spacing: -.03em;
+  text-wrap: balance;
+  text-shadow: var(--text-shadow);
+}
+.b7-final-title .accent { text-shadow: var(--glow-green), var(--text-shadow); }
